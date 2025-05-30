@@ -1,1 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>World War II Interactive</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #FFD700;
+    }
+
+    .section {
+      margin: 40px 0;
+      padding: 20px;
+      background: #222;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #000;
+    }
+
+    .sides-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 40px;
+    }
+
+    .side {
+      background: #333;
+      padding: 20px;
+      border-radius: 15px;
+      width: 40%;
+      min-width: 300px;
+      transition: transform 0.3s;
+    }
+
+    .side:hover {
+      transform: scale(1.03);
+    }
+
+    .leaders {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .leaders img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #FFD700;
+      transition: transform 0.3s;
+    }
+
+    .leaders img:hover {
+      transform: scale(1.2);
+    }
+
+    .timeline {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .timeline button {
+      background: #FFD700;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .timeline button:hover {
+      background: #ffae00;
+    }
+
+    .year-info {
+      display: none;
+      margin-top: 20px;
+      background: #1b1b1b;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .year-info img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .back-btn {
+      background: #666;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .back-btn:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>⚔️ World War II: Axis vs Allies ⚔️</h1>
+
+  <div class="section">
+    <h2>Axis vs Allies</h2>
+    <div class="sides-container">
+      <div class="side">
+        <h3>Axis Powers</h3>
+        <p>Germany, Italy, and Japan formed the Axis alliance.</p>
+        <div class="leaders">
+          <img src="https://hips.hearstapps.com/hmg-prod/images/gettyimages-615312714.jpg" alt="Adolf Hitler" title="Hitler">
+          <img src="https://previews.magnoliabox.com/printcollector/mb_hero/1624011/GLOBAL-FAP-6X8_scaled-bordered_850.jpg" alt="Mussolini" title="Mussolini">
+          <img src="https://apjjf.com/wp-content/uploads/2023/11/EmperorHirohitoenthrone.jpg" alt="Hirohito" title="Hirohito">
+        </div>
+      </div>
+      <div class="side">
+        <h3>Allied Powers</h3>
+        <p>The Allies included the USA, UK, and USSR.</p>
+        <div class="leaders">
+          <img src="https://www.geo.fr/imgre/fit/~1~geo~2021~03~16~1afb0cba-d8e2-4d16-a3b3-e53984b56e80.jpeg/375x525/background-color/ffffff/focus-point/1393%2C764/quality/70/franklin-roosevelt-qui-etait-ce-president-emblematique-des-etats-unis.jpg" alt="Roosevelt" title="Roosevelt">
+          <img src="https://cdn.britannica.com/35/7535-050-06374DF8/Winston-Churchill-Yousuf-Karsh-1941.jpg?w=400&h=300&c=crop" alt="Churchill" title="Churchill">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Stalin_before_1929.jpg/1200px-Stalin_before_1929.jpg" alt="Stalin" title="Stalin">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🕒 Timeline of Events</h2>
+    <div class="timeline">
+      <button onclick="showYear('1939')">1939</button>
+      <button onclick="showYear('1941')">1941</button>
+      <button onclick="showYear('1944')">1944</button>
+      <button onclick="showYear('1945')">1945</button>
+    </div>
+
+    <div class="year-info" id="year-info">
+      <div id="year-content"></div>
+      <button class="back-btn" onclick="hideYear()">← Back to Timeline</button>
+    </div>
+  </div>
+
+  <script>
+    const yearData = {
+      "1939": {
+        image: "https://www.hachettebookgroup.com/wp-content/uploads/2020/02/HachetteBookGroup-WWII-1939_thumb.jpg?w=380",
+        text: "1939: Germany invaded Poland. This marked the beginning of World War II."
+      },
+      "1941": {
+        image: "https://www.hachettebookgroup.com/wp-content/uploads/2020/02/HachetteBookGroup-WWII-1941_thumb.jpg?w=380",
+        text: "1941: Japan attacked Pearl Harbor, prompting the USA to enter the war."
+      },
+      "1944": {
+        image: "https://www.hachettebookgroup.com/wp-content/uploads/2020/02/HachetteBookGroup-WWII-1944_thumb.jpg?w=380",
+        text: "1944: D-Day invasion of Normandy by Allied forces started the liberation of Western Europe."
+      },
+      "1945": {
+        image: "https://www.hachettebookgroup.com/wp-content/uploads/2020/02/HachetteBookGroup-WWII-1945_thumb.jpg?w=380",
+        text: "1945: The war ended after atomic bombs were dropped on Hiroshima and Nagasaki."
+      }
+    };
+
+    function showYear(year) {
+      const content = yearData[year];
+      const container = document.getElementById('year-content');
+      container.innerHTML = `
+        <h3>${year}</h3>
+        <img src="${content.image}" alt="Event Image">
+        <p>${content.text}</p>
+      `;
+      document.getElementById('year-info').style.display = 'block';
+    }
+
+    function hideYear() {
+      document.getElementById('year-info').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
 # ww2-project
